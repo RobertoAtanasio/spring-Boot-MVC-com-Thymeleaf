@@ -15,7 +15,7 @@ public class Departamento extends AbstractEntity<Long> {
 	@Column(name = "nome", nullable = false, unique = true, length = 60)
 	private String nome;
 	
-	// aqui fica o atributo "departamento" que faz referência ao departmento na classe cargo
+	// aqui fica o atributo "departamento" que faz referência ao departmento na classe Cargo
 	@OneToMany(mappedBy = "departamento")
 	private List<Cargo> cargos;
 
