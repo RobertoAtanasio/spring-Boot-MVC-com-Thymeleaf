@@ -49,6 +49,25 @@
 	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 	    
+		// Referente ao botão excluir de departamento
+		
+		var url = '';
+		
+		// sempre que clicar em um elemento com inciais 'btn_', cai nesta função.
+		// $(this) é um componente do JQuery que faz referência ao elemento que está referenciado, no caso o button
+		$('button[id*="btn_"]').click(function() {
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+		});
+		
+		// ao clcicar no botão, a janela modal foi aberta e já popde ser testada.
+		// o id abaixo é o id da janela modal (modal.html)
+		// a janela modal esta´definida em lista.html pela tag <div th:replace="fragments/modal :: modal"></div>
+		$('#ok_confirm').click(function() {
+			// abaixo, executa a instrução via a URL formada acima.
+			document.location.href = url;
+		});
+	    
+		// Referente ao PopUp 
 		$(function() {
 			$('[data-toggle="popover"]').popover();
 		});
