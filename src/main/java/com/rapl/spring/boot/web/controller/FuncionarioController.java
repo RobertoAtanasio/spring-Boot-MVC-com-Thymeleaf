@@ -34,12 +34,12 @@ public class FuncionarioController {
 
 //	@GetMapping("/cadastrar")
 //	public String cadastrar() {
-//		return "/funcionario/cadastro";
+//		return "funcionario/cadastro";
 //	}
 //	
 //	@GetMapping("/listar")
 //	public String listar() {
-//		return "/funcionario/lista";
+//		return "funcionario/lista";
 //	}
 	
 	protected String url;
@@ -58,13 +58,13 @@ public class FuncionarioController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Funcionario funcionario) {
-		this.url = "/funcionario/cadastro";
+		this.url = "funcionario/cadastro";
 		return this.url;
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		this.url = "/funcionario/lista";
+		this.url = "funcionario/lista";
 		model.addAttribute("funcionarios", funcionarioService.buscarTodos());
 		return this.url; 
 	}
@@ -72,7 +72,7 @@ public class FuncionarioController {
 	@PostMapping("/salvar")
 	public String salvar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
 		this.url = "redirect:/funcionarios/cadastrar";
 		funcionarioService.salvar(funcionario);
@@ -90,7 +90,7 @@ public class FuncionarioController {
 	@PostMapping("/editar")
 	public String editar(@Valid Funcionario funcionario, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "/funcionario/cadastro";
+			return "funcionario/cadastro";
 		}
 		this.url = "redirect:/funcionarios/cadastrar";
 		funcionarioService.editar(funcionario);
@@ -109,7 +109,7 @@ public class FuncionarioController {
 	
 	@GetMapping("/buscar/nome")
 	public String getPorNome(@RequestParam("nome") String nome, ModelMap model) {
-		this.url = "/funcionario/lista";
+		this.url = "funcionario/lista";
 		model.addAttribute("funcionarios", funcionarioService.buscarPorNome(nome));
 		return this.url;
 	}
@@ -117,7 +117,7 @@ public class FuncionarioController {
 	@GetMapping("/buscar/cargo")
 	public String getPorCargo(@RequestParam("id") Long id, ModelMap model) {
 		System.out.println(">>>> ID: " + id);
-		this.url = "/funcionario/lista";
+		this.url = "funcionario/lista";
 		model.addAttribute("funcionarios", funcionarioService.buscarPorCargo(id));
 		return this.url;
 	}		
@@ -126,7 +126,7 @@ public class FuncionarioController {
     public String getPorDatas(@RequestParam("entrada") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate entrada,
                               @RequestParam("saida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate saida,
                               ModelMap model) {
-    	this.url = "/funcionario/lista";
+    	this.url = "funcionario/lista";
         model.addAttribute("funcionarios", funcionarioService.buscarPorDatas(entrada, saida));
         return this.url;
     }

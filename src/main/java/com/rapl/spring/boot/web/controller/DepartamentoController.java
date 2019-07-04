@@ -27,20 +27,20 @@ public class DepartamentoController {
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Departamento departamento) {
-		return "/departamento/cadastro";
+		return "departamento/cadastro";
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
 		model.addAttribute("departamentos", service.buscarTodos());
-		return "/departamento/lista"; 
+		return "departamento/lista"; 
 	}
 	
 	@PostMapping("/salvar")
 	public String salvar(@Valid Departamento departamento, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
 			// página: diretório/pagina.html
-			return "/departamento/cadastro";
+			return "departamento/cadastro";
 		}
 		this.url = "redirect:/departamentos/cadastrar";
 		service.salvar(departamento);
@@ -52,7 +52,7 @@ public class DepartamentoController {
 	@GetMapping("/editar/{id}")
 	public String preEditar(@PathVariable("id") Long id, ModelMap model) {
 		model.addAttribute("departamento", service.buscarPorId(id));
-		return "/departamento/cadastro";
+		return "departamento/cadastro";
 	}
 	
 	@PostMapping("/editar")
@@ -60,7 +60,7 @@ public class DepartamentoController {
 		this.url = "redirect:/departamentos/cadastrar";
 		if (result.hasErrors()) {
 			// página: diretório/pagina.html
-			return "/departamento/cadastro";
+			return "departamento/cadastro";
 		}
 		service.editar(departamento);
 		// usamos o attr.addFlashAttribute quando utilizamos o redirect

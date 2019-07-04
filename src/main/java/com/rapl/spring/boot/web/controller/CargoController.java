@@ -36,18 +36,18 @@ public class CargoController {
 //	@GetMapping("/cadastrar")
 //	public String cadastrar(Cargo cargo, ModelMap model) {
 //		model.addAttribute("departamentos", departamentoService.buscarTodos());	
-//		return "/cargo/cadastro";
+//		return "cargo/cadastro";
 //	}
 	
 	@GetMapping("/cadastrar")
 	public String cadastrar(Cargo cargo) {
-		this.url = "/cargo/cadastro";
+		this.url = "cargo/cadastro";
 		return this.url;
 	}
 	
 	@GetMapping("/listar")
 	public String listar(ModelMap model) {
-		this.url = "/cargo/lista";
+		this.url = "cargo/lista";
 		model.addAttribute("cargos", cargoService.buscarTodos());
 		return this.url; 
 	}
@@ -56,7 +56,7 @@ public class CargoController {
 	public String salvar(@Valid Cargo cargo, BindingResult result, RedirectAttributes attr) {
 		if (result.hasErrors()) {
 			// página: diretório/pagina.html
-			return "/cargo/cadastro";
+			return "cargo/cadastro";
 		}
 		this.url = "redirect:/cargos/cadastrar";
 		cargoService.salvar(cargo);
@@ -74,7 +74,7 @@ public class CargoController {
 	@PostMapping("/editar")
 	public String editar(@Valid Cargo cargo, BindingResult result,  RedirectAttributes attr) {
 		if (result.hasErrors()) {
-			return "/cargo/cadastro";		// página: diretório/pagina.html
+			return "cargo/cadastro";		// página: diretório/pagina.html
 		}
 		this.url = "redirect:/cargos/cadastrar";
 		cargoService.editar(cargo);
