@@ -57,7 +57,8 @@
 		// sempre que clicar em um elemento com inciais 'btn_', cai nesta função.
 		// $(this) é um componente do JQuery que faz referência ao elemento que está referenciado, no caso o button
 		$('button[id*="btn_"]').click(function() {
-			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
+			url = "/" + $(this).attr('id').split("_")[1];
+			//url = "http://localhost:8080/" + $(this).attr('id').split("_")[1];
 		});
 		
 		// ao clcicar no botão, a janela modal foi aberta e já popde ser testada.
