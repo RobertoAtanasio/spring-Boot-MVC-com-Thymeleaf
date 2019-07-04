@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.rapl.spring.boot.dao.CargoDao;
 import com.rapl.spring.boot.domain.Cargo;
@@ -23,7 +24,11 @@ public class CargoServiceImpl implements CargoService {
 
 	@Override
 	public void salvar(Cargo cargo) {
-		dao.save(cargo);		
+		Optional<Cargo> cargoOK = this.buscarPorNome(cargo.getNome());
+		if (cargoOK.isPresent()) {
+			Assert.isNull(cargo.getNome(),"Cargo já existente");
+		}
+		dao.save(cargo);
 	}
 
 	@Override
@@ -33,6 +38,9 @@ public class CargoServiceImpl implements CargoService {
 
 	@Override
 	public void excluir(Long id) {
+		if (this.cargoTemFuncionarios(id)) {
+			Assert.isNull(id,"Cargo não excluido. Tem funcionário(s) vinculado(s).");
+		}
 		dao.delete(id);		
 	}
 
@@ -49,8 +57,16 @@ public class CargoServiceImpl implements CargoService {
 	}
 
 	@Override
-	public Optional<Cargo> buscarPorIdOp(Long id) {
-		Optional<Cargo> cargo = cargoRepository.findById(id);
-		return cargo;
+	public boolean cargoTemFuncionarios(Long id) {
+		if (buscarPorId(id).getFuncionarios().isEmpty()) {
+			return false;
+		}
+		return true;
 	}
+
+	@Override
+	public Optional<Cargo> buscarPorNome(String nome) {
+		return cargoRepository.findByNome(nome);
+	}
+
 }
